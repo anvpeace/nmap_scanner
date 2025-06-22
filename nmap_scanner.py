@@ -19,52 +19,63 @@ resp = input(""" \nPlease enter the type of scan you want to run
 
 print("You have selected option: ", resp)
 
-if resp == '1':
-    # first print 
-    print("Nmap version: ", scanner.nmap_version())
 
-    # initialize scanner - call nmap class by providing arguements to perform the type of scan selected
-    # scanner.scan(ip address, range of ports, type of scan)
-    scanner.scan(ip_addr, '1-1024', '-v -sS')
+def preform_scan(resp):
+    if resp == '1':
+        # first print 
+        print("Nmap version: ", scanner.nmap_version())
 
-    print(scanner.scaninfo())
+        # initialize scanner - call nmap class by providing arguements to perform the type of scan selected
+        # scanner.scan(ip address, range of ports, type of scan)
+        scanner.scan(ip_addr, '1-1024', '-v -sS')
 
-    # tells user if the ip address is online or offline
-    print("IP status: ", scanner[ip_addr].state())
+        print(scanner.scaninfo())
 
-    # print all protocols
-    print(scanner[ip_addr].all_protocols())
+        # tells user if the ip address is online or offline
+        print("IP status: ", scanner[ip_addr].state())
 
-    # display all open ports with keys method - keys returns all active ports
-    print("Open ports: ", scanner[ip_addr]['tcp'].keys())
+        # print all protocols
+        print(scanner[ip_addr].all_protocols())
 
-elif resp == '2':
-    print("Nmap version: ", scanner.nmap_version())
-    
-    scanner.scan(ip_addr, '1-1024', '-v -sU')
+        # display all open ports with keys method - keys returns all active ports
+        print("Open ports: ", scanner[ip_addr]['tcp'].keys())
 
-    print(scanner.scaninfo())
+    elif resp == '2':
+        print("Nmap version: ", scanner.nmap_version())
+        
+        scanner.scan(ip_addr, '1-1024', '-v -sU')
 
-    # tells user if the ip address is online or offline
-    print("IP Status: ", scanner[ip_addr].state())
+        print(scanner.scaninfo())
 
-    # print all protocols
-    print(scanner[ip_addr].all_protocols())
+        # tells user if the ip address is online or offline
+        print("IP Status: ", scanner[ip_addr].state())
 
-    # display all open ports with keys method - keys returns all active ports
-    print("Open ports: ", scanner[ip_addr]['udp'].keys())
+        # print all protocols
+        print(scanner[ip_addr].all_protocols())
 
-elif resp == '3':
-    print("Nmap version: ", scanner.nmap_version())
+        # display all open ports with keys method - keys returns all active ports
+        print("Open ports: ", scanner[ip_addr]['udp'].keys())
 
-    scanner.scan(ip_addr, '1-1024', '-v -sS -sV -sC -A -O')
+    elif resp == '3':
+        print("Nmap version: ", scanner.nmap_version())
 
-    print(scanner.scaninfo())
+        scanner.scan(ip_addr, '1-1024', '-v -sS -sV -sC -A -O')
 
-    # .state() used to give status of ip address
-    print("IP Status: ", scanner[ip_addr].state)
-    print(scanner[ip_addr].all_protocols())
-    print("Open ports: ", scanner[ip_addr]['tcp'].keys())
+        print(scanner.scaninfo())
 
+        # .state() used to give status of ip address
+        print("IP Status: ", scanner[ip_addr].state)
+        print(scanner[ip_addr].all_protocols())
+        print("Open ports: ", scanner[ip_addr]['tcp'].keys())
+
+
+if resp <= '3':
+    preform_scan(resp)
 elif resp >= '4':
-    print("Please enter a valid option")
+    resp = input(""" \nPlease enter the type of scan you want to run 
+                   1) SYN ACK Scan
+                   2) UDP Scan
+                   3) Comprehensive Scan \n""")
+
+    print("You have selected option: ", resp)
+    preform_scan(resp)
