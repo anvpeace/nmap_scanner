@@ -75,7 +75,8 @@ elif resp >= '4':
     resp = input(""" \nPlease enter the type of scan you want to run 
                    1) SYN ACK Scan
                    2) UDP Scan
-                   3) Comprehensive Scan \n""")
+                   3) Comprehensive Scan \n
+                   """)
 
     print("You have selected option: ", resp)
     preform_scan(resp)
